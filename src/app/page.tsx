@@ -5,8 +5,12 @@ import { ArrowRightIcon, GitHubLogoIcon } from "@radix-ui/react-icons";
 
 import { Button } from "@/components/ui/button";
 import { ModeToggle } from "@/components/mode-toggle";
+import {getFirstMenuItem} from "@/lib/menu-list";
+import {useUser} from "@/hooks/use-user";
 
 export default function HomePage() {
+  const firstMenuItem = getFirstMenuItem();
+  console.log(firstMenuItem);
   return (
     <div className="flex flex-col min-h-screen">
       <header className="z-[50] sticky top-0 w-full bg-background/95 border-b backdrop-blur-sm dark:bg-black/[0.6] border-border/40">
@@ -46,7 +50,7 @@ export default function HomePage() {
             </span>
             <div className="flex w-full items-center justify-center space-x-4 py-4 md:pb-6">
               <Button variant="default" asChild>
-                <Link href="/dashboard">
+                <Link href={firstMenuItem}>
                   Demo
                   <ArrowRightIcon className="ml-2" />
                 </Link>

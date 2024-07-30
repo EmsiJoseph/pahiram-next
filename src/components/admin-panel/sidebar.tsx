@@ -7,11 +7,16 @@ import { Button } from "@/components/ui/button";
 import { Menu } from "@/components/admin-panel/menu";
 import { useSidebarToggle } from "@/hooks/use-sidebar-toggle";
 import { SidebarToggle } from "@/components/admin-panel/sidebar-toggle";
+import {siteConfig} from "@/config/site-config"
+import {useUser} from "@/hooks/use-user";
+import {getFirstMenuItem} from "@/lib/menu-list";
 
 export function Sidebar() {
   const sidebar = useStore(useSidebarToggle, (state) => state);
   
   if(!sidebar) return null;
+
+  const firstMenuItem = getFirstMenuItem();
 
   return (
     <aside
@@ -30,7 +35,7 @@ export function Sidebar() {
           variant="link"
           asChild
         >
-          <Link href="/dashboard" className="flex items-center gap-2">
+        <Link href={firstMenuItem} className="flex items-center gap-2">
             <PanelsTopLeft className="w-6 h-6 mr-1" />
             <h1
               className={cn(
@@ -40,7 +45,7 @@ export function Sidebar() {
                   : "translate-x-0 opacity-100"
               )}
             >
-              Brand
+              {siteConfig.label}
             </h1>
           </Link>
         </Button>
