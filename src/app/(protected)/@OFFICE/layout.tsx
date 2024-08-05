@@ -1,23 +1,24 @@
-import {useUser} from "@/hooks/use-user";
+"use client";
 import {LENDING_OFFICES_ACRONYMS} from "@/CONSTANTS/OFFICES_CONSTANTS";
+import {type UserState, useUserStore} from "@/hooks/useUser";
 
-export default function ProtectedLayout({
-                                            LENDING_OFFICES,
-                                            FAO,
-                                            PLO
-                                        }: {
+export default function OfficeParentLayout({
+                                               LENDING_OFFICES,
+                                               FAO,
+                                               PLO
+                                           }: {
     LENDING_OFFICES: React.ReactNode;
     FAO: React.ReactNode;
     PLO: React.ReactNode;
 }) {
-    const {office} = useUser;
-
+    const userData = useUserStore((state: unknown) => (state as UserState).userData);
+    const userOffice = userData?.office;
 
     return (
         <>
-            {LENDING_OFFICES_ACRONYMS.includes(office) && LENDING_OFFICES}
-            {office === "FAO" && FAO}
-            {office === "PLO" && PLO}
+            {typeof userOffice === 'string' && LENDING_OFFICES_ACRONYMS.includes(userOffice) && LENDING_OFFICES}
+            {userOffice === "FAO" && FAO}
+            {userOffice === "PLO" && PLO}
         </>
     );
 

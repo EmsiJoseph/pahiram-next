@@ -1,23 +1,26 @@
-import {useUser} from "@/hooks/use-user";
+"use client";
 
-export default function ProtectedLayout({
-                                           EMPLOYEE,
-    SUPERVISOR,
-    COSUPERVISOR
+import type {UserState} from "@/hooks/useUser";
+import {useUserStore} from "@/hooks/useUser";
+
+export default function OfficeLayout({
+                                            EMPLOYEE,
+                                            SUPERVISOR,
+                                            COSUPERVISOR
                                         }: {
     EMPLOYEE: React.ReactNode;
     SUPERVISOR: React.ReactNode;
     COSUPERVISOR: React.ReactNode;
 }) {
-    const {position} = useUser;
+    const userData = useUserStore((state: unknown) => (state as UserState).userData);
+    const userRole = userData?.role;
 
-
+    console.log("From layout: " + userRole);
     return (
         <>
-
-            {position === "EMPLOYEE" && EMPLOYEE}
-            {position === "SUPERVISOR" && SUPERVISOR}
-            {position === "COSUPERVISOR" && COSUPERVISOR}
+            {userRole === "EMPLOYEE" && EMPLOYEE}
+            {userRole === "SUPERVISOR" && SUPERVISOR}
+            {userRole === "COSUPERVISOR" && COSUPERVISOR}
         </>
     );
 }

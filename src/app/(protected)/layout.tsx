@@ -1,25 +1,27 @@
+"use client";
 import AdminPanelLayout from "@/components/admin-panel/admin-panel-layout";
-import {useUser} from "@/hooks/use-user";
+import {UserState, useUserStore} from "@/hooks/useUser";
+import React from "react";
 
 export default function ProtectedLayout({
                                             ADMIN,
                                             BORROW,
-                                            OFFICE
+                                            OFFICE,
                                         }: {
     ADMIN: React.ReactNode;
     BORROW: React.ReactNode;
     OFFICE: React.ReactNode;
 }) {
-    const {office, role, isAdmin} = useUser;
-
+    const userData = useUserStore((state: unknown) => (state as UserState).userData);
+    const userOffice = userData?.office;
+    const userIsAdmin = userData?.isAdmin;
 
 
     return (
         <AdminPanelLayout>
-            {/*// TODO: Make the toggle a component and check the user's role*/}
-            {/*{role === "BORROW" && BORROW}*/}
-            {isAdmin && ADMIN}
-            {office ? OFFICE : null}
+            {/*{BORROW}*/}
+            {/*/!*{userIsAdmin && ADMIN}*!/*/}
+            {userOffice ? OFFICE : null}
         </AdminPanelLayout>
     );
 }

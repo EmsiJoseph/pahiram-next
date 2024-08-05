@@ -9,7 +9,7 @@ import {
   SheetContent,
   SheetTrigger,
 } from "@/components/ui/sheet";
-import {siteConfig} from "@/config/site-config";
+import {siteConfig} from "@/config/siteConfig";
 
 export function SheetMenu() {
   return (
@@ -26,6 +26,7 @@ export function SheetMenu() {
             variant="link"
             asChild
           >
+            {/*TODO: Change the href to first menu item*/}
             <Link href="/dashboard" className="flex items-center gap-2">
               <PanelsTopLeft className="w-6 h-6 mr-1" />
               <h1 className="font-bold text-lg">{siteConfig.label}</h1>
